@@ -10,5 +10,11 @@
         {{ form.as_p }}
         <input type="submit" value="Add Task">
     </form>
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ formTaskList }}
+        <input type="submit" value="Remove Task">
+    </form>
 </body>
 </html>
