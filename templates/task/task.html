@@ -29,10 +29,26 @@
                 url: '/deleteTask',
                 task_id: id,
                 method: 'POST'
-            })
-        }
+            });
+        };
         
-        const editTask = () => {
+        const editTask = (id) => {
+            const p = window.getElementById(id);
+            let input = document.createElement('input');
+            input.type = text;
+            input.id = id;
+            p.appendChild(input);
+            let button = document.createElement('button');
+            button.onClick = () => {
+                let description = $(`input#${id}`).val();
+                $.ajax({
+                    url: '/editTask',
+                    task_id: id,
+                    method: 'POST',
+                    description
+                });
+            };
+            p.appendChild(button);
             
         }
     </script>

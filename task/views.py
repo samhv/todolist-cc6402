@@ -9,6 +9,26 @@ from django.views.generic.edit import DeleteView
 from task.forms import AddTaskForm, DeleteTaskForm
 from task.models import Task
 
+class SingleTaskView(TemplateView):
+    template_name = "task/task.html"
+    
+    def __init__(self, task):
+        super()
+        self.task = task
+    
+    def get_context_data(self, **kwargs):
+        context = {}
+        context['id'] = self.task.id
+        context['description'] = self.task.description
+        context['done'] = self.task.done
+        
+class AllTasksView(TemplateView):
+    template_name = "task/alltasks.html"
+    
+    def get_context_data(self, **kwargs):
+        context = {}
+        context['tasks'] = [SingleTaskView()]
+
 
 class TaskView(TemplateView):
     template_name = "task/task_template.html"
@@ -26,7 +46,12 @@ class TaskView(TemplateView):
         #description = request.POST.get("description")
         #Task.objects.create(description=description)
         return redirect("tasks")
+
+class DeleteTaskView(View):
+    def post(self, request):
+        print "Queremos borrar esto"
+        print request
+        task = request.POST.get("task")
+        Task.objects.get(task).delete()
+        return redirect("tasks")
         
-class DeleteTaskView(DeleteView):
-    model = Task
-    success_url = reverse_lazy('tasks:all')
