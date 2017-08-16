@@ -27,6 +27,16 @@ class TaskTest(TestCase):
         # then
         self.assertEqual(task_len - 1, len(Task.objects.all()))
         self.assertFalse(Task.objects.filter(description="hola mundo").exists())
-
-
-# Create your tests here.
+        
+    def test_edit_task(self):
+        # given
+        task = Task.objects.create(description="Afeitar al gato")
+        
+        #when
+        t = Task.objects.get(description="Afeitar al gato")
+        t.description="Afeitar al perro"
+        t.save()
+        
+        # then
+        self.assertTrue(Task.objects.filter(description="Afeitar al perro").exists())
+        

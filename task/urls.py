@@ -1,7 +1,8 @@
 from django.conf.urls import url
 
-from task import views
+from . import views
 
 urlpatterns = [
-    url(r'^tasks', views.TaskView.as_view(), name="tasks")
+    url(r'$', views.TaskView.as_view(), name="all"), # tasks
+    url(r'^removeTask$', views.DeleteTaskView.as_view(), name="delete_task"),
 ]

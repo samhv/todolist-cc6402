@@ -11,7 +11,7 @@
         <input type="submit" value="Add Task">
     </form>
     
-    <form method="post">
+    <form method="post" action="{% url "delete_task" %}">
         {% csrf_token %}
         {{ formTaskList }}
         <input type="submit" value="Remove Task">

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>
+    <div class="description">
+        {{ description }}
+    </div>
+    <div class="checkbox">
+        <form>
+            {% if {{ done }} %}
+            <input type="checkbox" name="" checked/>
+            {% else %}
+            <input type="checkbox" name=""/>
+            {% endif %}
+            <input type="submit" value="Submit"/>
+        </form>
+    </div>
+    <div class="delete-button">
+        <button onclick="deleteTask({{ id }})">
+        x</button>
+    </div>
+    <div class="edit-button">
+        <button onclick="editTask()">
+        Edit</button>
+    </div>
+    
+    <script type="text/javascript">
+        const deleteTask = (id) => {
+            $.ajax({
+                url: '/deleteTask',
+                task_id: id,
+                method: 'POST'
+            })
+        }
+        
+        const editTask = () => {
+            
+        }
+    </script>
+    
+</div>
+{% endblock %}
